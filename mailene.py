@@ -1,11 +1,7 @@
 from discord import Intents, Client, Message
 import messages
 import meetings
-
-BOT_TOKEN = ""
-TEST_CHANNEL_ID = 1236752327180943550
-CHANNEL_ID = 1236740627815862292
-
+import config
 
 intents: Intents = Intents.default()
 intents.message_content = True
@@ -29,14 +25,14 @@ async def handleMessage(msg: Message, userMessage: str) -> None:
     
 async def sendReminder(msg: str):
     try:
-        channel = client.get_channel(TEST_CHANNEL_ID)
+        channel = client.get_channel(config.TEST_CHANNEL_ID)
         await channel.send(msg)
     except Exception as e:
         print(e)
 
 
 def checkAllowedChannelID(channelID: int) -> bool:
-    return channelID == CHANNEL_ID or channelID == TEST_CHANNEL_ID
+    return channelID == config.CHANNEL_ID or channelID == config.TEST_CHANNEL_ID
 
 
 def getResponse(input: str) -> str:
@@ -88,7 +84,7 @@ async def on_message(message: Message):
 
 
 def main() -> None:
-    client.run(token=BOT_TOKEN)
+    client.run(token=config.BOT_TOKEN)
 
 if __name__ == '__main__':
     main()
